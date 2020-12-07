@@ -19,7 +19,7 @@ I choosed 9 sites as training sites (Si polar swath"I00831006"; Lyot crater"V008
 For each training site, I downloaded and used Raster data. Those data are Visible and infrared data in the “.TIFF” format and are combination of different band (9 0R 10 bands according to Mars Odysee website) and each band is showing data in a specific wavelength. I  then added all data (images) together to create a metadata containing all information from each site. For Mars, I don't need to resize any of the images because they all have the same size.I finally used the band ratio combination to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials in each site I choose as training site and from there I was able to see which sites could be selected as the best future landing/mining sites. I finally get the GPS coordinates of those sites and plot them on a Martian globe using the package threejs.
 
 # Data and Results
-## PART1: Selection of thhe landing/mining sites
+## PART1: Selection of the landing/mining sites
 
 The goal here is to detect the site where we could have more water/ water ice/ volatiles materials. I applied some corrections to satelitte images I downloaded. For question of time I will only show what I did in only one site here but all sites I selected to be future landing/mining site are shown later in the second part of this project.
 
