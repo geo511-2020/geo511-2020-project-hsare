@@ -1,13 +1,13 @@
 
 ---
-title: "Search for future mining and landing sites on Mars"
+  title: "Search for future mining and landing sites on Mars"
 author: Hadarou Sare
 
 ---
-
-# Introduction
-
-For more than decades,NASA and its partners has been developing technologies to extract precious metals and water from the Moon, Mars and other bodies in the solar system. The extraction of water is very important because it can reduce considerably the cost of launch since the water can be split into Hydrogen and Oxygen and use as propellant in space. That idea has been clearly supported recently by the US goverment and European partners with the Artemis and other projects. However, even though scientists and engineers have already developed the right technologies able to extract water and other resources from space, it is still unclear where they should land their technologies(Rover and others) and start mining the resources they are looking for. 
+  
+  # Introduction
+  
+  For more than decades,NASA and its partners has been developing technologies to extract precious metals and water from the Moon, Mars and other bodies in the solar system. The extraction of water is very important because it can reduce considerably the cost of launch since the water can be split into Hydrogen and Oxygen and use as propellant in space. That idea has been clearly supported recently by the US goverment and European partners with the Artemis and other projects. However, even though scientists and engineers have already developed the right technologies able to extract water and other resources from space, it is still unclear where they should land their technologies(Rover and others) and start mining the resources they are looking for. 
 
 The goal of this project is to use the package "threejs" to visualize the future best mining sites on Mars(water/water ice/volatiles materials mining sites). The final product is a map showing locations of best landing sites and mining sites.
 However, before getting into that step, I used some geological and engineering criteria to determine and selected the best landing/mining sites for the future rovers. The criteria used to select the landing/mining sites are: where are located minerals indicating the presence of water/water ice?, where do we have permanent sunlight to use as source of energy for processing the water and charging the rovers? Is the topography of the site suitable for the mobility of the rover to and from the processing center?... 
@@ -44,6 +44,13 @@ I prepare the data by reading in the different bands that comprise the satelitte
 
 
 ```{r, message=F, warning=F}
+#Band1 <- ("B02.tif")
+#Band2 <- ("B03.tif")
+#Band3 <- ("B04.tif")
+#Band4 <- ("B05.tif")
+#Band5 <- ("B06.tif")
+#Band6 <- ("B07.tif")
+#Band7 <- ("B08.tif")
 
 band1 <- ("b01.tiff")
 band2 <- ("b02.tiff")
@@ -60,7 +67,18 @@ band9 <- ("b09.tiff")
 
 ```{r, message=F, warning=F}
 library(raster)
+#This first part of the plot is an example on how it works with Landsat data for Earth
+##Band1 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B02.tif")
+#(band1 <- raster("B02.tif"))
+##Band2 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B03.tif")
+##Band3 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B04.tif")
+##Band4 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B05.tif")
+##Band5 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B06.tif")
+##Band6 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B07.tif")
+##Band7 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/B08.tif")
 
+
+#This first part  is showing how it works with Mars data
 band1 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/b01.tiff")
 band2 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/b02.tiff")
 band3 <- raster("C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/selection_of_landingMining_sites/b03.tiff")
@@ -78,12 +96,42 @@ Show result of band1
 print(band1)
 ```
 
-Now, I check the size of image before combining them together using STACK to make sure the sizes match. The code used "res(bandX), where X is the number of the band" shows that all bands have the same size 20x20.
+Now, I check the size of image before combining them together using STACK to make sure the sizes match. The code used "res(bandX), where X is the number of the band" shows that band1, band2, band3, and band7 are 10x10. Band4, band5, and band6 are 20x20.
 
 
-For image classification or image processing to map water or volatiles materials in selected sites, it is important to resize some image using for example the function "bandX <- aggregate(bandx, fact = 2)" in case they don't have the same size to make sure all images have the same size before adding them together using stack function in order to have a single data containg all informations from each band.
+#```{r}
+#Here is an example for Landsat data of different size
+#res(Band1) # Size find is 10x10
+#res(Band2) # Size find is 10x10
+#res(Band3) # Size find is 10x10
+#res(Band4) # Size find is 20x20
+#res(Band5) # Size find is 20x20
+#res(Band6) # Size find is 20x20
+#res(Band7) # Size find is 10x10
+
+#Here is the code use to find size of Martian data
+#res(band1) # Size find is 10x10
+#res(band2) # Size find is 10x10
+#res(band3) # Size find is 10x10
+#res(band4) # Size find is 20x20
+#res(band5) # Size find is 20x20
+#res(band6) # Size find is 20x20
+#res(band7) # Size find is 10x10
+#res(band8) # Size find is 10x10
+#res(band9) # Size find is 10x10
+#```
+
+For image classification or image processing to map water or volatiles materials in selected sites, it is important to resize some image to make sure all images have the same size before adding them together using stack function in order to have a single data containg all informations from each band.
 However, for Martian data and from the result after tests, we observed that all images have the same size so we will just add them all together later without resizing any image.
 
+
+#```{r}
+#This is for Earth (Landsat) data to show how it works
+#band1 <- aggregate(band1, fact = 2) # multiply the size of band1 by 2 to have 20x20
+#band2 <- aggregate(band1, fact = 2) # multiply the size of band2 by 2 to have 20x20
+#band3 <- aggregate(band1, fact = 2) # multiply the size of band3 by 2 to have 20x20
+#band7 <- aggregate(band1, fact = 2) # multiply the size of band7 by 2 to have 20x20
+#```
 
 Now we can add all bands together to have a metadata containing all informations we are looking for and which will be helpful to continue the project.
 
@@ -101,6 +149,10 @@ Let's explore the images. Here, we are able to see the number of band used, the 
 
 
 ```{r}
+#For Earth as example
+#nlayers(image1) #This give the number of bands use
+#crs(image1) #the coordinate system the imagery is projected in, and the resolution (or grid cell size) of the raster.
+#res #resolution of the images
 
 #For Mars
 nlayers(image2) #This give the number of bands use
@@ -112,12 +164,34 @@ res #resolution of the images
 Now that we know a little more about the imagery we are using, let plot it. Since image is a multi-band raster,
 we use the plotRGB function from the raster package, which allows us to specify what bands should be visualized.
 
+###TRUE COLOR PLOTS. It uses the red band (4) for red, the green band (3) for green, and the blue band (2) for blue.
 
+
+#```{r}
+#For Earth as example
+#par(col.axis="white",col.lab="white",tck=0)
+#plotRGB(image1, r = 4, g = 3, b = 2, axes = TRUE, 
+        #stretch = "lin", main = "True Color Composite")
+#box(col="white")
+
+
+#For Mars because that is what interest us.
+#par(col.axis="white",col.lab="white",tck=0)
+#plotRGB(image2, r = 4, g = 3, b = 2, axes = TRUE, 
+        #stretch = "lin", main = "True Color Composite")
+#box(col="white")
+#```
 ###FALSE COLOR PLOT.The false color composite uses NIR (5) for red, red (4) for green, and green (3) for blue.
 
 
 ```{r}
+#For Earth as example
+#par(col.axis="white",col.lab="white",tck=0)
+#plotRGB(image1, r = 5, g = 4, b = 3, axes = TRUE, stretch = "lin", main = "False Color Composite")
+#box(col="white")
 
+
+#For Mars 
 par(col.axis="white",col.lab="white",tck=0)
 plotRGB(image2, r = 5, g = 4, b = 3, axes = TRUE, stretch = "lin", main = "False Color Composite")
 box(col="white")
@@ -142,32 +216,51 @@ MNDWI <- (band4)/(1/band9).
 This formula is derived after multiple simulations and observations
 
 ```{r}
-
-#We derived This formula is derived after multiple observations and applied to different data before using it.
-MNDWI <- (band4)/(1/band9)
-#MNDWI <- (band4-band9)/(band4+band9)
+#For Earth data as example
+#MNDWI <- (Band4 - Band6)/(Band4 + Band6)
 
 
-as(MNDWI, "SpatialPixelsDataFrame") %>% 
-  as.data.frame() %>%
-  ggplot(data = .) +
-  geom_tile(aes(x = x, y = y, fill = layer)) +
-  theme(axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.minor = element_blank()) +
-  labs(title = "Water or Water ice or Volatiles materials", 
-       x = " ", 
-       y = " ") +
-  scale_fill_gradient(high = "#CEE50E", 
-                      low = "#087F28",
-                      name = "Water or Water ice or Volatiles materials")
-```
-
-## PART2: Visualization of landing/mining sites on map
-After detecting the sites that could be consider and selected as best future landing/mining site according to the figure above, We just get the geographical coordinates (locations from the onboard GPS of the spacecraft) of those sites and created an exel file with those coordinates and then plot them on Martian globe using the threejs package.
-
-As seen above, the selection of the sites are firstly done by processing satellites images from Mars to see where the water or volatiles materials are abundant. In this section which is the second section of the project, we will get the geographical coordinates of those sites consider as best future landing sites and plot them on a Martian globe using the package threej. In fact, since the Martian gloge we will use in this project is already georeferenced with Martian coordiante system, then finding best future landing/mining site's geographical coordinates through our method in the first section will allow us to create an exel file where we will store those data (coordinate of the best future sites) and finally plot those sites on a Martian globe using the package threejs by calling the exel file in Rstudio.
+#as(MNDWI, "SpatialPixelsDataFrame") %>% 
+  #as.data.frame() %>%
+ # ggplot(data = .) +
+ # geom_tile(aes(x = x, y = y, fill = layer)) +
+ # theme(axis.text = element_blank(),
+       # axis.ticks = element_blank(),
+       # panel.background = element_blank(),
+       # panel.grid.minor = element_blank()) +
+ # labs(title = "Water or Water ice or Volatiles materials", 
+   #    x = " ", 
+    #   y = " ") +
+ # scale_fill_gradient(high = "#CEE50E", 
+                                     #   low = "#087F28",
+                                     #   name = "Water or Water ice or Volatiles materials")
+                                     
+                                     #For Mars. 
+                                     #We derived This formula is derived after multiple observations and applied to different data before using it.
+                                     MNDWI <- (band4)/(1/band9)
+                                     #MNDWI <- (band4-band9)/(band4+band9)
+                                     
+                                     
+                                     as(MNDWI, "SpatialPixelsDataFrame") %>% 
+                                       as.data.frame() %>%
+                                       ggplot(data = .) +
+                                       geom_tile(aes(x = x, y = y, fill = layer)) +
+                                       theme(axis.text = element_blank(),
+                                             axis.ticks = element_blank(),
+                                             panel.background = element_blank(),
+                                             panel.grid.minor = element_blank()) +
+                                       labs(title = "Water or Water ice or Volatiles materials", 
+                                            x = " ", 
+                                            y = " ") +
+                                       scale_fill_gradient(high = "#CEE50E", 
+                                                           low = "#087F28",
+                                                           name = "Water or Water ice or Volatiles materials")
+                                     ```
+                                     
+                                     ## PART2: Visualization of landing/mining sites on map
+                                     After detecting the sites that could be consider and selected as best future landing/mining site according to the figure above, We just get the geographical coordinates (locations from the onboard GPS of the spacecraft) of those sites and created an exel file with those coordinates and then plot them on Martian globe using the threejs package.
+                                     
+                                     As seen above, the selection of the sites are firstly done by processing satellites images from Mars to see where the water or volatiles materials are abundant. In this section which is the second section of the project, we will get the geographical coordinates of those sites consider as best future landing sites and plot them on a Martian globe using the package threej. In fact, since the Martian gloge we will use in this project is already georeferenced with Martian coordiante system, then finding best future landing/mining site's geographical coordinates through our method in the first section will allow us to create an exel file where we will store those data (coordinate of the best future sites) and finally plot those sites on a Martian globe using the package threejs by calling the exel file in Rstudio.
 
 I loaded required packages
 
@@ -191,7 +284,10 @@ globejs(img = "C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/T
         lightcolor="#555555",
         lat = the_martian$x,
         long = the_martian$y)
+#        lat="C:/Users/Owner/Desktop/sare  backup/c/user #hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/visualize_of_landi#ngMining_sites/the_martian.csv/the_martian$x", #The latitude when I use this code is not showing up and I need to work on it little #bit.
 
+ #       long = "C:/Users/Owner/Desktop/sare  backup/c/user #hadar/Desktop/GEO511/Tasks/geo511-tasks-hsare/geo511-2020-final-project/geo511-2020-project-hsare/visualize_of_landi#ngMining_sites/the_martian.csv/the_martian$y") #The longitude when I use this code is also still not showing up and I need to work on it #little bit.
+      
 ```
 
 
