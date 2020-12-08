@@ -9,19 +9,20 @@ author: Hadarou Sare
 
 For more than decades,NASA and its partners has been developing technologies to extract precious metals and water from the Moon, Mars and other bodies in the solar system. The extraction of water is very important because it can reduce considerably the cost of launch since the water can be split into Hydrogen and Oxygen and use as propellant in space. That idea has been clearly supported recently by the US goverment and European partners with the Artemis and other projects. However, even though scientists and engineers have already developed the right technologies able to extract water and other resources from space, it is still unclear where they should land their technologies(Rover and others) and start mining the resources they are looking for. 
 
-The goal of this project is to use the package "threejs" to visualize the future best mining sites on Mars(water/water ice/volatiles materials mining sites). The final product is a map showing locations of best landing sites and mining sites.
+The goal of this project is to use the package "threejs" to visualize the future best mining locations within the best future landing/mining site on Mars(water/water ice/volatiles materials mining sites). The final product is a map showing locations of mining site within the best landing site.
 However, before getting into that step, I used some geological and engineering criteria to determine and selected the best landing/mining sites for the future rovers. The criteria used to select the landing/mining sites are: where are located minerals indicating the presence of water/water ice?, where do we have permanent sunlight to use as source of energy for processing the water and charging the rovers? Is the topography of the site suitable for the mobility of the rover to and from the processing center?... 
-For this project, the most important criteria I  considered is the geological criteria for question of time. I choosed and explored 9 sites as training sites and then selected among those sites the best ones as future landing/mining sites.
+For this project, the most important criteria I  considered is the geological criteria for question of time. I choosed and explored 9 sites as training sites and then selected among those sites Lyot crater"V00823007" which seem to be the best future landing/mining site. Within Lyot crater"V00823007", some locations show the presence of more volatiles materials than others. So the locations with abundant volatile materials are selected as future mining site and are then ploted on a Martian georeferenced globe.
 
 # Materials and methods
 
 I choosed 9 sites as training sites (Si polar swath"I00831006"; Lyot crater"V00823007"; Cerberus fossae"V00825005";Echus chasma"I00839002"; Sinus Meridiana west"I00849005"; Syrtis Major"I00853002"; Ophir planum"I00864002"; Marte vallis"I00868006; Eastern Meridiani"I00836002").
-For each training site, I downloaded and used Raster data. Those data are Visible and infrared data in the “.TIFF” format and are combination of different band (9 0R 10 bands according to Mars Odysee website) and each band is showing data in a specific wavelength. I  then added all data (images) together to create a metadata containing all information from each site. For Mars, I don't need to resize any of the images because they all have the same size.I finally used the band ratio combination to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials in each site I choose as training site and from there I was able to see which sites could be selected as the best future landing/mining sites. I finally get the GPS coordinates of those sites and plot them on a Martian globe using the package threejs.
+For each training site, I downloaded and used Raster data. Those Raster data are Visible and infrared data in the “.TIFF” format and are combination of nine(9) or ten (10) bands according to Mars Odysee website. Each band is reflecting data in a specific wavelength. Even though all bands in each training site were already together in a single image in the website, I still re-added them together after using an image processing algorithm to correct the images in order to create a metadata file containing all information from each site. For Mars, I don't need to resize any band before adding them together because they all have the same size.I finally used the band ratio combination to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials in each site I choosed as training site and from there I was able to see Lyot crater"V00823007" can be selected as the best future landing/mining site. I finally get the GPS coordinates of some locations within the Lyot crater"V00823007" site and plot those locations on a Martian globe using the package threejs.The locations shown on the Martian gloge which are within Lyot crater"V00823007" site are consider to be the future mining site because volatile materials are abundants in those locations compare to other location within Lyot crater"V00823007".
 
 # Data and Results
 ## PART1: Selection of the landing/mining sites
 
-The goal here is to detect the site where we could have more water/ water ice/ volatiles materials. I applied some corrections to satelitte images I downloaded. For question of time I will only show what I did in only one site here but all sites I selected to be future landing/mining site are shown later in the second part of this project.
+The goal here is to detect the site where we could have more water/ water ice/ volatiles materials. I applied some corrections to the satelitte images I downloaded. 
+For question of time I will only show what I did in only one site here (Lyot crater"V00823007") but all sites I selected as training sites were subject to the same process.
 
 I loaded required packages
 
@@ -40,7 +41,7 @@ library(sp)
 library(raster)
 ```
 
-I prepare the data by reading in the different bands that comprise the satelitte imagery. Each band refers to different spectrum.
+I prepare the data by reading in the different bands that comprise the satelitte imagery. Each band refers to different spectrum and all bands below are from Lyot crater"V00823007" image.
 
 
 ```{r, message=F, warning=F}
@@ -78,20 +79,19 @@ Show result of band1
 print(band1)
 ```
 
-Now, I check the size of image before combining them together using STACK to make sure the sizes match. The code used "res(bandX), where X is the number of the band" shows that all bands have the same size 20x20.
+Now, I check the size of image before combining them together using STACK function to make sure the sizes match. The code used "res(bandX), where X is the number of the band" shows that all bands have the same size 20x20.
 
 
 For image classification or image processing to map water or volatiles materials in selected sites, it is important to resize some image using for example the function "bandX <- aggregate(bandx, fact = 2)" in case they don't have the same size to make sure all images have the same size before adding them together using stack function in order to have a single data containg all informations from each band.
-However, for Martian data and from the result after tests, we observed that all images have the same size so we will just add them all together later without resizing any image.
+However, for Lyot crater"V00823007" data, we observed that all bands have the same size. So we just add them all together later without resizing any band.
 
 
-Now we can add all bands together to have a metadata containing all informations we are looking for and which will be helpful to continue the project.
+We add all bands together to have a metadata containing all informations we are looking for and which will be helpful to continue the project.
 
 Most of the time, when dealing with or Earth data, researchers usually  add only band2, band3 and band7 together because those wavelength are able to reflect the distribution of water.
 
 However, we are dealing with the Martian data in our project and we observed that for Martian data, we have the same size so we will just add them all together.But I add only band4, band5, band6, band8 and band9 together because those wavelength are able to reflect the distribution of water on the selected site.
 ```{r}
-image1 <- stack(Band2, Band3, Band7) #Here is how it works for Landsat data on Earth
 #image1 <- stack(band4, band5, band6)
 image2 <- stack(band4, band5, band6, band8, band9) #Here is for Mars images
 
@@ -109,8 +109,8 @@ res #resolution of the images
 ```
 
 ##Results1
-Now that we know a little more about the imagery we are using, let plot it. Since image is a multi-band raster,
-we use the plotRGB function from the raster package, which allows us to specify what bands should be visualized.
+Now that we know a little more about the imagery we are using, let plot it. Since the image is a multi-band raster,
+we use the plotRGB function from the raster package, which allows us to specify which bands should be visualized.
 
 
 ###FALSE COLOR PLOT.The false color composite uses NIR (5) for red, red (4) for green, and green (3) for blue.
@@ -165,9 +165,10 @@ as(MNDWI, "SpatialPixelsDataFrame") %>%
 ```
 
 ## PART2: Visualization of landing/mining sites on map
-After detecting the sites that could be consider and selected as best future landing/mining site according to the figure above, We just get the geographical coordinates (locations from the onboard GPS of the spacecraft) of those sites and created an exel file with those coordinates and then plot them on Martian globe using the threejs package.
 
-As seen above, the selection of the sites are firstly done by processing satellites images from Mars to see where the water or volatiles materials are abundant. In this section which is the second section of the project, we will get the geographical coordinates of those sites consider as best future landing sites and plot them on a Martian globe using the package threej. In fact, since the Martian gloge we will use in this project is already georeferenced with Martian coordiante system, then finding best future landing/mining site's geographical coordinates through our method in the first section will allow us to create an exel file where we will store those data (coordinate of the best future sites) and finally plot those sites on a Martian globe using the package threejs by calling the exel file in Rstudio.
+After knowing that Lyot crater"V00823007" site is the best site to be consider as best future landing site according to the figure above, We just get the GPS coordinates of some locations within the Lyot crater"V00823007" site  (GPS coordinates from the onboard GPS of the spacecraft), created an exel file containing the coordinates of those locations and plot them on Martian georeferenced globe using the threejs package.
+As state previously, the locations within Lyot crater"V00823007" shown on the Martian gloge are the future mining site because volatile materials are more abundants in those locations compare to other location within Lyot crater"V00823007".
+
 
 I loaded required packages
 
@@ -176,7 +177,7 @@ library(threejs)
 ```
 
 ##Results2
-I firstly prepared and loaded the data and then with the package called "streejs" I plot the exact locations of landing and mining sites on the Martian global map. I created a cvs file where I stored the latitudes and logitude of the future landing and mining sites selested and call that file in R.
+I firstly prepared and loaded the data and then with the package called "threejs" I plot the exact locations of  mining sites on the Martian global map. I created a cvs file where I stored the latitudes and logitude of the future  mining sites within Lyot crater"V00823007" site and then call that file in R.
 
 
 ```{r}
@@ -197,10 +198,13 @@ globejs(img = "C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/T
 
 
 # Conclusions
+The selection of the best landing site is firstly done by choosing training sites and processing satellites images to see where the water or volatiles materials are abundant. Secondly, we  get the geographical coordinates of the locations consider to be best mining sites within Lyot crater"V00823007" and plot them on a Martian globe using the package threej. 
+In fact, since the Martian gloge used in this project is already georeferenced with Martian coordiante system, then finding the mining site's geographical coordinates locations allow us to plot those locations on a Martian globe using the package threejs by creating an exel file containing the coordinate of the locations and calling that exel file in Rstudio.
+From all sites I selected as training sites (Si polar swath"I00831006"; Lyot crater"V00823007"; Cerberus fossae"V00825005";Echus chasma"I00839002"; Sinus Meridiana west"I00849005"; Syrtis Major"I00853002"; Ophir planum"I00864002"; Marte vallis"I00868006; Eastern Meridiani"I00836002"), Lyot crater"V00823007" seems to be the best future landing site and within Lyot crater"V00823007", various locations could be potentially use as mining site based on the results from the band ratio combination used to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials within Lyot crater.
 
-From all sites I selected as training sites I choosed 9 sites as training sites (Si polar swath"I00831006"; Lyot crater"V00823007"; Cerberus fossae"V00825005";Echus chasma"I00839002"; Sinus Meridiana west"I00849005"; Syrtis Major"I00853002"; Ophir planum"I00864002"; Marte vallis"I00868006; Eastern Meridiani"I00836002"), Meridiana west seems to be the best one. The band ratio combination is used to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials in each site before selecting some specific spots within Meridiana west as future landing/mining site.This is done using R language meaning that R is a suitable tool offering the user the choice to manipulate the data in the way he or she wants as well as to perfom diverses task on Earth and in space. R is definitely a great too that can help explorers, planetary scientists to overcome some difficulties they could not handle with other softwares.
+This is done using R language meaning that R is a suitable tool offering the user the choice to manipulate the data in the way he or she wants as well as to perfom diverses task  in space. R is definitely a great tool that can help explorers, planetary scientists to overcome some difficulties they could not handle with other softwares.
 
 
 # References
 
-All sources are cited (to be updated later)
+All sources are cited
