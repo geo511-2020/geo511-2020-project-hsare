@@ -205,7 +205,7 @@ From all sites I selected as training sites (Si polar swath"I00831006"; Lyot cra
 This is done using R language meaning that R is a suitable tool offering the user the choice to manipulate the data in the way he or she wants as well as to perfom diverses task  in space. R is definitely a great tool that can help explorers, planetary scientists to overcome some difficulties they could not handle with other softwares.
 
 
-# References
+# References 
 
 
 Christensen, P.R., N.S. Gorelick, G.L. Mehall, and K.C. Murray, THEMIS Public Data Releases, Planetary Data System node, Arizona State University, <http://themis-data.asu.edu>
@@ -227,4 +227,3 @@ https://bwlewis.github.io/rthreejs/
 http://viewer.mars.asu.edu/viewer/themis?fbclid=IwAR25EYWm7LdGMbm4Dy07ebvzYn000glNEbbwnt--JiPHsXLk7kYiViZkrHY#P=I00825008,I00825008,I00825008,I00826002,I00826002,I00834002,I00834002,I00834002,I00834002,I00836002&T=6
 
 http://www.asu.edu/privacy/
-
