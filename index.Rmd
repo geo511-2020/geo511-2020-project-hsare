@@ -164,7 +164,7 @@ as(MNDWI, "SpatialPixelsDataFrame") %>%
                       name = "Water or Water ice or Volatiles materials")
 ```
 
-## PART2: Visualization of mining sites within the selected landing site on Martian gloge (map)
+## PART2: Visualization of mining sites within the selected landing site on Martian gloge (map) 
 
 After knowing that Lyot crater"V00823007" site is the best site to be consider as best future landing site according to the figure above, We just get the GPS coordinates of some locations within the Lyot crater"V00823007" site  (GPS coordinates from the onboard GPS of the spacecraft), created an exel file containing the coordinates of those locations and plot them on Martian georeferenced globe using the threejs package.
 As state previously, the locations within Lyot crater"V00823007" shown on the Martian gloge are the future mining site because volatile materials are more abundants in those locations compare to other location within Lyot crater"V00823007".
