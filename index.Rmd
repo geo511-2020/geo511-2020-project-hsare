@@ -1,6 +1,6 @@
 
 ---
-title: "Search for future mining and landing sites on Mars"
+title: "Search for future landing site and mining locations on Mars"
 author: Hadarou Sare
 
 ---
@@ -207,6 +207,15 @@ This is done using R language meaning that R is a suitable tool offering the use
 
 # References
 
+
+Christensen, P.R., N.S. Gorelick, G.L. Mehall, and K.C. Murray, THEMIS Public Data Releases, Planetary Data System node, Arizona State University, <http://themis-data.asu.edu>
+
+Christensen, P.R., B.M. Jakosky, H.H. Kieffer, M.C. Malin, H.Y. McSween, Jr., K. Nealson, G.L. Mehall, S.H. Silverman, S. Ferry, M. Caplinger, and M. Ravine, The Thermal Emission Imaging System (THEMIS) for the Mars 2001 Odyssey Mission, Space Science Reviews, 110, 85-130, 2004.
+
+Fergason, R.L., P.R. Christensen, and H.H. Kieffer, High Resolution Thermal Inertia Derived from THEMIS: Thermal Model and Applications, J. Geophys. Res., 111, E12004, doi:10.1029/2006JE002735, 2006.
+ 
+NASA/JPL-Caltech/Arizona State University
+
 https://www.researchgate.net/post/What_is_the_best_band_combination_for_highlighting_the_water_and_soil_together_in_LANDSAT_image2
 
 https://www.researchgate.net/profile/Saygin_Abdikan
@@ -218,13 +227,4 @@ https://bwlewis.github.io/rthreejs/
 http://viewer.mars.asu.edu/viewer/themis?fbclid=IwAR25EYWm7LdGMbm4Dy07ebvzYn000glNEbbwnt--JiPHsXLk7kYiViZkrHY#P=I00825008,I00825008,I00825008,I00826002,I00826002,I00834002,I00834002,I00834002,I00834002,I00836002&T=6
 
 http://www.asu.edu/privacy/
-
-NASA/JPL-Caltech/Arizona State University
-
-Christensen, P.R., N.S. Gorelick, G.L. Mehall, and K.C. Murray, THEMIS Public Data Releases, Planetary Data System node, Arizona State University, <http://themis-data.asu.edu>
-
-Christensen, P.R., B.M. Jakosky, H.H. Kieffer, M.C. Malin, H.Y. McSween, Jr., K. Nealson, G.L. Mehall, S.H. Silverman, S. Ferry, M. Caplinger, and M. Ravine, The Thermal Emission Imaging System (THEMIS) for the Mars 2001 Odyssey Mission, Space Science Reviews, 110, 85-130, 2004.
-
-Fergason, R.L., P.R. Christensen, and H.H. Kieffer, High Resolution Thermal Inertia Derived from THEMIS: Thermal Model and Applications, J. Geophys. Res., 111, E12004, doi:10.1029/2006JE002735, 2006.
- 
 
