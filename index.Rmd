@@ -22,7 +22,7 @@ For each training site, I downloaded and used Raster data from the Java Mission-
 ## PART1: Selection of the future best landing site
 
 The goal here is to detect the site where we could have more water/ water ice/ volatiles materials. I applied some corrections to the satelitte images I downloaded. 
-For question of time I will only show what I did in only one site here (Lyot crater"V00823007") but all sites I selected as training sites were subject to the same process.
+For question of time I will only show what I did in only one site here (Lyot crater) but all sites I selected as training sites were subject to the same process.
 
 I loaded required packages
 
@@ -42,20 +42,9 @@ library(raster)
 ```
 
 I prepare the data by reading in the different bands that comprise the satelitte imagery. Each band refers to different spectrum and all bands below are from Lyot crater"V00823007" image.
-
-
-#```{r, message=F, warning=F}
-
-#band1 <- ("b01.tiff")
-#band2 <- ("b02.tiff")
-#band3 <- ("b03.tiff")
-#band4 <- ("b04.tiff")
-#band5 <- ("b05.tiff")
-#band6 <- ("b06.tiff")
-#band7 <- ("b07.tiff")
-#band8 <- ("b08.tiff")
-#band9 <- ("b09.tiff")
-#```
+the data I downloaded from Lyot crater can be downloaded by going to JMARS website at the location: Latitude=48, Longitude=30 with the orbit number=71153. Before downloading the data, users need to download and install JMARS. JMARS is in fact a sorte of website but specifically a software where you can find, manipulate, and download any Martian data. The url is:https://jmars.asu.edu/
+ 
+Below, are the data I downloaded from JMARS for each band (in Lyot crater site).  The data can be download by following the instructions given above.
 
 
 
@@ -82,34 +71,26 @@ print(band1)
 Now, I check the size of image before combining them together using STACK function to make sure the sizes match. The code used "res(bandX), where X is the number of the band" shows that all bands have the same size 20x20.
 
 
-For image classification or image processing to map water or volatiles materials in selected sites, it is important to resize some image using for example the function "bandX <- aggregate(bandx, fact = 2)" in case they don't have the same size to make sure all images have the same size before adding them together using stack function in order to have a single data containg all informations from each band.
-However, for Lyot crater"V00823007" data, we observed that all bands have the same size. So we just add them all together later without resizing any band.
-
-
-We add all bands together to have a metadata containing all informations we are looking for and which will be helpful to continue the project.
-
-Most of the time, when dealing with or Earth data, researchers usually  add only band2, band3 and band7 together because those wavelength are able to reflect the distribution of water.
-
-However, we are dealing with the Martian data in our project and we observed that for Martian data, we have the same size so we will just add them all together.But I add only band4, band5, band6, band8 and band9 together because those wavelength are able to reflect the distribution of water on the selected site.
+Since all bands have the same size, We could therefore add them all together to have a metadata containing all informations we are looking for and which will be helpful to continue the project.
+However, we add only band4, band5, band6, band8 and band9 together because those wavelength are able to reflect the distribution of water on the selected site.
 ```{r}
 #image1 <- stack(band4, band5, band6)
-image2 <- stack(band4, band5, band6, band8, band9) #Here is for Mars images
+image2 <- stack(band4, band5, band6, band8, band9) 
 
 ```
 
-Let's explore the images. Here, we are able to see the number of band used, the coordinate system the imagery is projected in, the resolution (or grid cell size) of the raster, and the resolution of the images
+Let's explore the images. Here, we are able to see the number of band used, the coordinate system the imagery is projected in, the resolution (or grid cell size) of the raster.
 
 
 ```{r}
 
-#For Mars
 nlayers(image2) #This give the number of bands use
 crs(image2) #the coordinate system the imagery is projected in, and the resolution (or grid cell size) of the raster.
-res #resolution of the images
+
 ```
 
 ##Results1
-Now that we know a little more about the imagery we are using, let plot it. Since the image is a multi-band raster,
+Now that we know a little more about the imagery we are using, let's plot it. Since the image is a multi-band raster,
 we use the plotRGB function from the raster package, which allows us to specify which bands should be visualized.
 
 
@@ -139,7 +120,7 @@ Band4, Band5, and Band6 are use for Earth datas where Band4 represent the Green 
 For Mars,the formula change little bit because all bands are collected and stored in the same file in Mars Odysee website. False color or black and white could reveal the distribution of water. However, we use the formula:
 
 MNDWI <- (band4)/(1/band9).
-This formula is derived after multiple simulations and observations
+This formula is derived after multiple simulations and observations. i.e. lot of mathematical band combinations have been tested in order to come up with the above formula.
 
 ```{r}
 
@@ -166,8 +147,10 @@ as(MNDWI, "SpatialPixelsDataFrame") %>%
 
 ## PART2: Visualization of mining sites within the selected landing site on Martian gloge (map) 
 
-After knowing that Lyot crater"V00823007" site is the best site to be consider as best future landing site according to the figure above, We just get the GPS coordinates of some locations within the Lyot crater"V00823007" site  (GPS coordinates from the onboard GPS of the spacecraft), created an exel file containing the coordinates of those locations and plot them on Martian georeferenced globe using the threejs package.
-As state previously, the locations within Lyot crater"V00823007" shown on the Martian gloge are the future mining site because volatile materials are more abundants in those locations compare to other location within Lyot crater"V00823007".
+After knowing that Lyot crater site is the best site to be consider as future landing site according to the figure above, We just get the GPS coordinates of two locations within the Lyot crater site  (GPS coordinates from the onboard GPS of the spacecraft), created a "cvs" file containing the coordinates of those locations and plot them on Martian georeferenced globe using the threejs package.
+As state previously, the two locations within Lyot crater shown on the Martian gloge are the future mining sites.
+
+It is important to notice that it is hard to observe a connection between the  PART1 and PART2 even though both parts are connected. In fact, the mining sites appearing on the Martian globe in PART2 are from PART1. The geographical coordiantes of two potential mining site are located randomly in the figure showing "Watter or water ice or volatiles materials distribution" ploted in PART1. Those two locations according to JMARS are: 50.5 North- 29.3 East and 48.9 North-30 East. The two identified locations are then ploted in a Martian globe as final product using threej.
 
 I loaded required packages
 
@@ -176,7 +159,7 @@ library(threejs)
 ```
 
 ##Results2
-I firstly prepared and loaded the data and then with the package called "threejs" I plot the exact locations of  mining sites on the Martian global map. I created a cvs file where I stored the latitudes and logitude of the future  mining sites within Lyot crater"V00823007" site and then call that file in R.
+I firstly  loaded the data and then with the package called "threejs" I plot the exact locations of  mining sites on the Martian global map. I created a cvs file where I stored the latitudes and logitude of the future  mining sites within Lyot crater site and then call that file in R.
 
 
 ```{r}
@@ -197,9 +180,9 @@ globejs(img = "C:/Users/Owner/Desktop/sare  backup/c/user hadar/Desktop/GEO511/T
 
 
 # Conclusions
-The selection of the best landing site is firstly done by choosing training sites and processing satellites images to see where the water or volatiles materials are abundant. Secondly, we  get the geographical coordinates of the locations consider to be best mining sites within Lyot crater"V00823007" and plot them on a Martian globe using the package threej. 
+The selection of the best landing site is firstly done by choosing training sites and processing satellites images to see where the water or volatiles materials are abundant. Secondly, we  get the geographical coordinates of the locations consider to be best mining sites within Lyot crater and plot them on a Martian globe using the package threej. 
 In fact, since the Martian gloge used in this project is already georeferenced with Martian coordiante system, then finding the mining site's geographical coordinates locations allow us to plot those locations on a Martian globe using the package threejs by creating an exel file containing the coordinate of the locations and calling that exel file in Rstudio.
-From all sites I selected as training sites (Si polar swath"I00831006"; Lyot crater"V00823007"; Cerberus fossae"V00825005";Echus chasma"I00839002"; Sinus Meridiana west"I00849005"; Syrtis Major"I00853002"; Ophir planum"I00864002"; Marte vallis"I00868006; Eastern Meridiani"I00836002"), Lyot crater"V00823007" seems to be the best future landing site and within Lyot crater"V00823007", various locations could be potentially use as mining site based on the results from the band ratio combination used to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials within Lyot crater.
+From all sites I selected as training sites (Si polar swath"I00831006"; Lyot crater"V00823007"; Cerberus fossae"V00825005";Echus chasma"I00839002"; Sinus Meridiana west"I00849005"; Syrtis Major"I00853002"; Ophir planum"I00864002"; Marte vallis"I00868006; Eastern Meridiani"I00836002"), Lyot crater"V00823007" seems to be the best future landing site and within Lyot crater, various locations could be potentially selected as mining site based on the results from the band ratio combination used to determine the presence, abundance and distribution of water, water ice, ice or volatiles materials within Lyot crater.
 
 This is done using R language meaning that R is a suitable tool offering the user the choice to manipulate the data in the way he or she wants as well as to perfom diverses task  in space. R is definitely a great tool that can help explorers, planetary scientists to overcome some difficulties they could not handle with other softwares.
 
